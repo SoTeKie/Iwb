@@ -17,6 +17,9 @@ class Item(models.Model):
     def price(self):
         return self.category.price if self.individual_price == 0 else self.individual_price
 
+    def __str__(self):
+        return self.name
+
 class OrderInfo(models.Model):
     item = models.ForeignKey('Item', on_delete=models.CASCADE,related_name="order_info")
     order = models.ForeignKey('Order', on_delete=models.CASCADE, related_name="item_info")
