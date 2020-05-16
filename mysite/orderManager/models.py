@@ -33,7 +33,7 @@ class Order(models.Model):
     items = models.ManyToManyField('Item', through="OrderInfo", related_name='orders')
 
     created_time = models.DateTimeField(auto_now_add=True)
-    isPayed = models.BooleanField(default=False)
+    isPaid = models.BooleanField(default=False)
     isCompleted = models.BooleanField(default=False)
 
     def __str__(self):
