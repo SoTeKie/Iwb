@@ -40,9 +40,12 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
 
     def validate(self, data):
         d = dict(data)
+        if not d['item_info']:
+            raise serializers.ValidationError("Empty orders are not allowed.")
+
         for item in d['item_info']:
             if not Item.objects.filter(id = item['id']).exists():
-                raise serializers.ValidationError
+                raise serializers.ValidationError("Item doesn't exist.")
         return d
 
     class Meta:
