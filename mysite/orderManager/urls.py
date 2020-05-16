@@ -6,6 +6,7 @@ router = routers.DefaultRouter()
 router.register('orders', views.OrderView)
 router.register('categories', views.CategoryView)
 router.register('items', views.ItemView)
+router.register('order_infos', views.OrderInfoView)
 
 urlpatterns = [
     path('', include(router.urls)),

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import Order, Category, Item
-from .serializers import OrderSerializer, CategorySerializer, ItemSerializer
+from .models import Order, Category, Item, OrderInfo
+from .serializers import OrderSerializer, CategorySerializer, ItemSerializer, OrderInfoSerializer
 
 class OrderView(viewsets.ModelViewSet):
     queryset = Order.objects.all()
@@ -14,3 +14,8 @@ class CategoryView(viewsets.ModelViewSet):
 class ItemView(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
+
+
+class OrderInfoView(viewsets.ModelViewSet):
+    queryset = OrderInfo.objects.all()
+    serializer_class = OrderInfoSerializer
