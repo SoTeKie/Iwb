@@ -46,7 +46,7 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
 
         for item in d['item_info']:
             if not Item.objects.filter(id = item['item_id']).exists():
-                raise serializers.ValidationError('Item doesn't exist.')
+                raise serializers.ValidationError('Item doesn\'t exist.')
         return d
 
     class Meta:
