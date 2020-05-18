@@ -16,8 +16,8 @@ class ItemSerializer(serializers.HyperlinkedModelSerializer):
 
 class OrderInfoSerializer(serializers.ModelSerializer):
     item_id = serializers.IntegerField()
-    name = serializers.ReadOnlyField(source="item.name")
-    price = serializers.ReadOnlyField(source="item.price")
+    name = serializers.ReadOnlyField(source='item.name')
+    price = serializers.ReadOnlyField(source='item.price')
 
     class Meta:
         model = OrderInfo
@@ -26,10 +26,10 @@ class OrderInfoSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
-    items = OrderInfoSerializer(source = "item_info", many=True)
+    items = OrderInfoSerializer(source = 'item_info', many=True)
 
     def create(self, validated_data):
-        items_data = validated_data.pop("item_info")
+        items_data = validated_data.pop('item_info')
         order = Order.objects.create(**validated_data)
         for item in items_data:
             d = dict(item)
@@ -42,11 +42,11 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
     def validate(self, data):
         d = dict(data)
         if not d['item_info']:
-            raise serializers.ValidationError("Empty orders are not allowed.")
+            raise serializers.ValidationError('Empty orders are not allowed.')
 
         for item in d['item_info']:
             if not Item.objects.filter(id = item['item_id']).exists():
-                raise serializers.ValidationError("Item doesn't exist.")
+                raise serializers.ValidationError('Item doesn't exist.')
         return d
 
     class Meta:

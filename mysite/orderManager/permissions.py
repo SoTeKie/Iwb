@@ -5,10 +5,10 @@ class OrderPermissions(permissions.BasePermission):
 
     def has_permission(self, request, view):
         if request.method in ['GET','PATCH', 'DELETE']:
-            return request.user.groups.filter(name="Bartender").exists() or request.user.is_staff
+            return request.user.groups.filter(name='Bartender').exists() or request.user.is_staff
 
         if request.method == 'POST':
-            return request.user.groups.filter(name="Table").exists()
+            return request.user.groups.filter(name='Table').exists()
 
 
 class ItemPermissions(permissions.BasePermission):

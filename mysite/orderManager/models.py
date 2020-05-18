@@ -8,7 +8,7 @@ class Category(models.Model):
         return self.name
 
 class Item(models.Model):
-    category = models.ForeignKey('Category', on_delete=models.PROTECT, related_name="items")
+    category = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='items')
 
     name = models.CharField(max_length=30)
     individual_price = models.PositiveSmallIntegerField(default=0)
@@ -21,20 +21,21 @@ class Item(models.Model):
         return self.name
 
 class OrderInfo(models.Model):
-    item = models.ForeignKey('Item', on_delete=models.CASCADE,related_name="order_info")
-    order = models.ForeignKey('Order', on_delete=models.CASCADE, related_name="item_info")
+    item = models.ForeignKey('Item', on_delete=models.CASCADE,related_name='order_info')
+    order = models.ForeignKey('Order', on_delete=models.CASCADE, related_name='item_info')
 
     quantity = models.PositiveSmallIntegerField(default=1)
 
     def __str__(self):
-        return "Order #{} - item: {}".format(self.order.pk, self.item.name)
+        return 'Order #{} - item: {}'.format(self.order.pk, self.item.name)
 
 class Order(models.Model):
-    items = models.ManyToManyField('Item', through="OrderInfo", related_name='orders')
+    items = models.ManyToManyField('Item', through='OrderInfo', related_name='orders')
 
     created_time = models.DateTimeField(auto_now_add=True)
     isPaid = models.BooleanField(default=False)
     isCompleted = models.BooleanField(default=False)
+    notes = models.CharField(max_length=30, blank=True)
 
     def __str__(self):
-        return "Order #{}".format(self.pk)
+        return 'Order #{}'.format(self.pk)
