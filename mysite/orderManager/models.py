@@ -12,6 +12,7 @@ class Item(models.Model):
 
     name = models.CharField(max_length=30)
     individual_price = models.PositiveSmallIntegerField(default=0)
+    in_stock = models.BooleanField(default=True)
 
     @property
     def price(self):

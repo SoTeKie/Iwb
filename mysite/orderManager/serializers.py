@@ -10,9 +10,20 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'url','name', 'price')
 
 class ItemSerializer(serializers.HyperlinkedModelSerializer):
+
+    def update(self, instance, validated_data):
+        uneditable_fields = ['id','url','name','price']
+        for field in uneditable_fields:
+            if field in validated_data:
+                raise serializers.ValidationError("Uneditable fields! {}".format(uneditable_fields))
+        return super().update(instance, validated_data)
+
+
     class Meta:
         model = Item
-        fields = ('id', 'url', 'name', 'category', 'price')
+        fields = ('id', 'url', 'name', 'category', 'price','in_stock')
+
+
 
 class OrderInfoSerializer(serializers.ModelSerializer):
     item_id = serializers.IntegerField()
@@ -39,8 +50,18 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
                                     quantity=d['quantity'])
         return order
 
+    def update(self, instance, validated_data):
+        uneditable_fields = ['id','url','notes','items']
+        for field in uneditable_fields:
+            if field in validated_data:
+                raise serializers.ValidationError("Uneditable fields! {}".format(uneditable_fields))
+        return super().update(instance, validated_data)
+
     def validate(self, data):
         d = dict(data)
+        
+        if self.instance:
+            return d
         if not d['item_info']:
             raise serializers.ValidationError('Empty orders are not allowed.')
 
@@ -51,4 +72,4 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'url','isCompleted','isPaid', 'items')
+        fields = ('id', 'url','isCompleted','isPaid','notes', 'items')
