@@ -4,7 +4,7 @@ from django.db.models import Q
 class OrderPermissions(permissions.BasePermission):
 
     def has_permission(self, request, view):
-        if request.method in ['GET','PATCH', 'DELETE']:
+        if request.method in ['GET','PATCH']:
             return request.user.groups.filter(name='Bartender').exists() or request.user.is_staff
 
         if request.method == 'POST':
