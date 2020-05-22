@@ -6,6 +6,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        verbose_name_plural = 'categories'
 
 class Item(models.Model):
     category = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='items')
