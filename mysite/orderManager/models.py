@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=15)
@@ -36,6 +37,7 @@ class OrderInfo(models.Model):
 class Order(models.Model):
     items = models.ManyToManyField('Item', through='OrderInfo', related_name='orders')
 
+    table = models.ForeignKey(User, on_delete=models.CASCADE) 
     created_time = models.DateTimeField(auto_now_add=True)
     isPaid = models.BooleanField(default=False)
     isCompleted = models.BooleanField(default=False)
