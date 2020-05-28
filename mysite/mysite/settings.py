@@ -28,6 +28,7 @@ DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
+CORS_ORIGIN_ALLOW_ALL = config('CORS_ALL', cast=bool)
 
 # Application definition
 
@@ -134,5 +135,3 @@ REST_FRAMEWORK = {
     ],
 }
 
-CORS_ORIGIN_WHITELIST = config('CORS_WHITELIST', cast=Csv())
-CORS_ORIGIN_ALLOW_ALL = config('CORS_ALL', cast=bool)

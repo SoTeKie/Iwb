@@ -10,6 +10,8 @@ class OrderPermissions(permissions.BasePermission):
         if request.method == 'POST':
             return request.user.groups.filter(name='Table').exists()
 
+        if request.method == 'OPTIONS':
+            return True
 
 class ItemPermissions(permissions.BasePermission):
 
@@ -19,3 +21,6 @@ class ItemPermissions(permissions.BasePermission):
 
         if request.method == 'PATCH':
             return request.user.groups.filter(name='Bartender').exists() or request.user.is_staff
+
+        if request.method == 'OPTIONS':
+            return True
