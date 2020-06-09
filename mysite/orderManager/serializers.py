@@ -8,20 +8,20 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
         model = Category
         fields = ('id', 'url', 'name', 'price')
 
+
 class ItemSerializer(serializers.HyperlinkedModelSerializer):
 
     def update(self, instance, validated_data):
         uneditable_fields = ['id', 'url', 'name', 'price']
         for field in uneditable_fields:
             if field in validated_data:
-                raise serializers.ValidationError("Uneditable fields! {}".format(uneditable_fields))
+                raise serializers.ValidationError("Uneditable fields! {}"
+                                                  .format(uneditable_fields))
         return super().update(instance, validated_data)
-
 
     class Meta:
         model = Item
         fields = ('id', 'url', 'name', 'category', 'price', 'in_stock')
-
 
 
 class OrderInfoSerializer(serializers.ModelSerializer):
@@ -32,7 +32,6 @@ class OrderInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderInfo
         fields = ('item_id', 'name', 'price', 'quantity')
-
 
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
@@ -52,7 +51,8 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
         uneditable_fields = ['id', 'url', 'notes', 'items']
         for field in uneditable_fields:
             if field in validated_data:
-                raise serializers.ValidationError("Uneditable fields! {}".format(uneditable_fields))
+                raise serializers.ValidationError("Uneditable fields! {}"
+                                                  .format(uneditable_fields))
         return super().update(instance, validated_data)
 
     def validate(self, attrs):
@@ -72,9 +72,10 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
         model = Order
         fields = ('id', 'url', 'isCompleted', 'isPaid', 'notes', 'items')
 
-# JWT SERIALIZER - OVERRIDE TO ADD GROUP TO LOGIN RESPONSE
 
 class GroupTokenObtainPairSerializer(TokenObtainPairSerializer):
+    # JWT SERIALIZER - OVERRIDE TO ADD GROUP TO LOGIN RESPONSE
+
     def validate(self, attrs):
         data = super().validate(attrs)
         refresh = self.get_token(self.user)
