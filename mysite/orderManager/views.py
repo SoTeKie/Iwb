@@ -39,5 +39,5 @@ class CustomAuthToken(ObtainAuthToken):
         token, created = Token.objects.get_or_create(user=user)
         return Response({
             'token': token.key,
-            'user_groups': user.groups.values_list('name', flat=True)
+            'user_group': user.groups.all()[0].name
         })
