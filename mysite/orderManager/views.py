@@ -1,10 +1,8 @@
 from rest_framework import viewsets
-from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import Order, Category, Item
 from .serializers import (OrderSerializer,
                           CategorySerializer,
-                          ItemSerializer,
-                          GroupTokenObtainPairSerializer)
+                          ItemSerializer,)
 from .permissions import OrderPermissions, ItemPermissions
 
 
@@ -26,7 +24,3 @@ class ItemView(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Item.objects.filter(in_stock=True)
-
-
-class GroupTokenObtainPairView(TokenObtainPairView):
-    serializer_class = GroupTokenObtainPairSerializer

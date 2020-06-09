@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import Order, Category, Item, OrderInfo
 
 
@@ -71,18 +70,3 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Order
         fields = ('id', 'url', 'isCompleted', 'isPaid', 'notes', 'items')
-
-
-class GroupTokenObtainPairSerializer(TokenObtainPairSerializer):
-    # JWT SERIALIZER - OVERRIDE TO ADD GROUP TO LOGIN RESPONSE
-
-    def validate(self, attrs):
-        data = super().validate(attrs)
-        refresh = self.get_token(self.user)
-        data['refresh'] = str(refresh)
-        data['access'] = str(refresh.access_token)
-
-        # Adding extra info here
-        data['groups'] = self.user.groups.values_list('name', flat=True)
-
-        return data
