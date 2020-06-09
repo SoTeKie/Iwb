@@ -9,4 +9,5 @@ router.register('items', views.ItemView, basename='item')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('auth-token/', views.CustomAuthToken.as_view())
 ]
