@@ -53,7 +53,7 @@ class Order(models.Model):
                                    through='OrderInfo',
                                    related_name='orders')
 
-    table = models.ForeignKey(User, on_delete=models.CASCADE)
+    customer = models.CharField(max_length=30)
     created_time = models.DateTimeField(auto_now_add=True)
     isPaid = models.BooleanField(default=False)
     isCompleted = models.BooleanField(default=False)
