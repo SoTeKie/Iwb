@@ -7,13 +7,16 @@ from .serializers import (OrderSerializer,
                           CategorySerializer,
                           ItemSerializer,)
 from .permissions import OrderPermissions, ItemPermissions
-
+from django.utils import timezone
+from datetime import timedelta
 
 class OrderView(viewsets.ModelViewSet):
-    queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes = (OrderPermissions,)
 
+    def get_queryset(self):
+        time_threshold = timezone.now() - timedelta(hours=24)
+        return Order.objects.filter(created_time__gte=time_threshold)
 
 class CategoryView(viewsets.ModelViewSet):
     queryset = Category.objects.all()

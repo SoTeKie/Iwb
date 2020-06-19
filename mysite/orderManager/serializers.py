@@ -47,7 +47,7 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
         return order
 
     def update(self, instance, validated_data):
-        uneditable_fields = ['id', 'url', 'notes', 'items']
+        uneditable_fields = ['id', '__str__', 'customer', 'url', 'notes', 'items']
         for field in uneditable_fields:
             if field in validated_data:
                 raise serializers.ValidationError("Uneditable fields! {}"
@@ -69,4 +69,4 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'url', 'customer', 'isCompleted', 'isPaid', 'notes', 'items')
+        fields = ('id', '__str__', 'url', 'customer', 'isCompleted', 'isPaid', 'notes', 'items')
