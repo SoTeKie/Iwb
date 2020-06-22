@@ -60,7 +60,7 @@ class Order(models.Model):
     notes = models.CharField(max_length=30, blank=True)
 
     def __str__(self):
-        return 'Order #{}'.format(self.pk)
+        return '#{}'.format(self.pk)
 
 
 @receiver(post_save, sender=User)
