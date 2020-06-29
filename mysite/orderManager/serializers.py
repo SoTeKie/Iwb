@@ -5,10 +5,10 @@ from .models import Order, Category, Item, OrderInfo
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Category
-        fields = ('id', 'url', 'name', 'price')
+        fields = ('id', 'items', 'url', 'name', 'price')
 
 
-class ItemSerializer(serializers.HyperlinkedModelSerializer):
+class ItemSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         uneditable_fields = ['id', 'url', 'name', 'price']
