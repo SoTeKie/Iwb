@@ -57,7 +57,7 @@ class Order(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
     isPaid = models.BooleanField(default=False)
     isCompleted = models.BooleanField(default=False)
-    notes = models.CharField(max_length=30, blank=True)
+    notes = models.CharField(max_length=150, blank=True)
 
     def __str__(self):
         return '#{}'.format(self.pk)
