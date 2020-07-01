@@ -25,11 +25,9 @@ class CategoryView(viewsets.ModelViewSet):
 
 
 class ItemView(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
     serializer_class = ItemSerializer
     permission_classes = (ItemPermissions,)
-
-    def get_queryset(self):
-        return Item.objects.filter(in_stock=True)
 
 
 class CustomAuthToken(ObtainAuthToken):
