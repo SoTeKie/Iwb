@@ -25,7 +25,7 @@ class CategoryView(viewsets.ModelViewSet):
 
 
 class ItemView(viewsets.ModelViewSet):
-    queryset = Category.objects.all()
+    queryset = Item.objects.all()
     serializer_class = ItemSerializer
     permission_classes = (ItemPermissions,)
 
