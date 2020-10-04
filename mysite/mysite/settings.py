@@ -28,7 +28,6 @@ DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
-CORS_ORIGIN_ALLOW_ALL = config('CORS_ALL', cast=bool)
 
 # Application definition
 
